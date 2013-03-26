@@ -28,18 +28,29 @@ Place the following code in ``application/bundles.php``:
 
 
 ### Usage ####
+To generate Excel XLS file :
 
 		$objPHPExcel = new PHPExcel();
 		$sheet = $objPHPExcel->getActiveSheet();
 		$sheet->setCellValue('A1','Test value');
-		$writer = new PHPExcel_Writer_PDF($objPHPExcel);
+		$writer = new PHPExcel_Writer_Excel5($objPHPExcel);
+		$writer->save("test.xls");
+		return Response::download('test.xls', 'test.xls');
+
+
+To generate Excel XLS 2007+ format file :
+
+		$objPHPExcel = new PHPExcel();
+		$sheet = $objPHPExcel->getActiveSheet();
+		$sheet->setCellValue('A1','Test value');
+		$writer = new PHPExcel_Writer_Excel2007($objPHPExcel);
 		$writer->save("test.xlsx");
 		return Response::download('test.xlsx', 'test.xlsx');
 
 
 More info about PHPExcel , visit : http://phpexcel.codeplex.com/
 
-This is all fine and works until you run it and then you will get the warning
+If you try to use PDF writer you will get this warning :
 
 PDF Rendering library has not been defined
 
